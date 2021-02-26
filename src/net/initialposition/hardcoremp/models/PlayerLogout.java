@@ -1,4 +1,4 @@
-package de.initialposition.hardcoremp.models;
+package net.initialposition.hardcoremp.models;
 
 import java.sql.Timestamp;
 import java.util.UUID;

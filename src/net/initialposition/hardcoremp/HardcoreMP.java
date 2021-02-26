@@ -1,14 +1,14 @@
-package de.initialposition.hardcoremp;
+package net.initialposition.hardcoremp;
 
-import de.initialposition.hardcoremp.listeners.PlayerDeathListener;
-import de.initialposition.hardcoremp.listeners.PlayerLoginOutListener;
-import de.initialposition.hardcoremp.util.ConfigOperations;
-import de.initialposition.hardcoremp.util.ConsoleLogger;
-import de.initialposition.hardcoremp.util.PluginInfo;
+import net.initialposition.hardcoremp.listeners.PlayerDeathListener;
+import net.initialposition.hardcoremp.listeners.PlayerLoginOutListener;
+import net.initialposition.hardcoremp.util.ConfigOperations;
+import net.initialposition.hardcoremp.util.ConsoleLogger;
+import net.initialposition.hardcoremp.util.PluginInfo;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import static de.initialposition.hardcoremp.util.ConfigOperations.ConfigKeys.OFFLINE_PLAYERS;
+import static net.initialposition.hardcoremp.util.ConfigOperations.ConfigKeys.OFFLINE_PLAYERS;
 
 public class HardcoreMP extends JavaPlugin {
 
@@ -17,8 +17,8 @@ public class HardcoreMP extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        ConsoleLogger.consoleLog("This server is running HardcoreMP v" + PluginInfo.VERSION + ", "
-                + PluginInfo.COPYRIGHT + " " + PluginInfo.AUTHOR);
+        ConsoleLogger.consoleLog("This server is running HardcoreMP v" + PluginInfo.VERSION + " by "
+                + PluginInfo.AUTHOR);
 
         // handle config loading
         if (!ConfigOperations.hasConfig(this)) {

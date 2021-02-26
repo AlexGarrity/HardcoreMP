@@ -1,6 +1,6 @@
 main: de.initialposition.hardcoremp.HardcoreMP
 name: HardcoreMP
-version: 1.0.0
+version: 1.0.1
 description: A plugin to spice up a non hardcore minecraft server
 api-version: 1.16
 author: InitialPosition

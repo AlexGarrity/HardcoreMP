@@ -1,9 +1,9 @@
-package de.initialposition.hardcoremp.listeners;
+package net.initialposition.hardcoremp.listeners;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import de.initialposition.hardcoremp.models.PlayerLogout;
-import de.initialposition.hardcoremp.util.ConsoleLogger;
+import net.initialposition.hardcoremp.models.PlayerLogout;
+import net.initialposition.hardcoremp.util.ConsoleLogger;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,8 +13,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-import static de.initialposition.hardcoremp.util.ConfigOperations.ConfigKeys.*;
+import static net.initialposition.hardcoremp.util.ConfigOperations.ConfigKeys.*;
 
 public class PlayerLoginOutListener implements Listener {
 
@@ -24,7 +25,7 @@ public class PlayerLoginOutListener implements Listener {
 
     private ArrayList<PlayerLogout> logoutList;
 
-    private final int RANDOM_MESSAGE_COUNT = 20;
+    private final int RANDOM_MESSAGE_COUNT;
 
     private final ArrayList<String> loginMessages = new ArrayList<>();
 
@@ -57,6 +58,8 @@ public class PlayerLoginOutListener implements Listener {
         this.loginMessages.add("PLAYER snapped the Inventorinity Gauntlet twice, deleting 100% of items.");
         this.loginMessages.add("PLAYER has taken your inventory. You may scream at them once.");
         this.loginMessages.add("PLAYER stole your items. Kill them. no wait no dont");
+
+        RANDOM_MESSAGE_COUNT = this.loginMessages.size();
     }
 
     @EventHandler
@@ -76,26 +79,28 @@ public class PlayerLoginOutListener implements Listener {
             }
         }
 
-        // only try to delete if player logged in before AND inventory deletion is enabled
-        if (logoutData != null && this.plugin.getConfig().getBoolean(String.valueOf(DELETE_INVENTORIES_ON_DEATH))) {
-            // check if someone died since the player logged in
-            if (logoutData.getLastLogin() < this.plugin.getConfig().getLong(String.valueOf(LAST_DEATH_TIME))) {
-                // if yes, clear inventory
-                p.getInventory().clear();
+        // only try to delete if player logged in before
+        if (logoutData != null) {
+            // check if someone died since the player logged in and inventory deletion is enabled
+            if (this.plugin.getConfig().getBoolean(String.valueOf(DELETE_INVENTORIES_ON_DEATH))) {
+                if (logoutData.getLastLogin() < this.plugin.getConfig().getLong(String.valueOf(LAST_DEATH_TIME))) {
+                    // if yes, clear inventory
+                    p.getInventory().clear();
 
-                // send a message to tell the player who deleted their shiny items
-                // get one of the random messages
-                int randNr = (int) (Math.random() * RANDOM_MESSAGE_COUNT);
-                String inventoryGoneMessage = this.loginMessages.get(randNr);
+                    // send a message to tell the player who deleted their shiny items
+                    // get one of the random messages
+                    int randNr = (int) (Math.random() * RANDOM_MESSAGE_COUNT);
+                    String inventoryGoneMessage = this.loginMessages.get(randNr);
 
-                // insert the dying players name
-                String lastDeathName = this.plugin.getConfig().getString(String.valueOf(LAST_DEATH_NAME));
-                if (lastDeathName != null) {
-                    inventoryGoneMessage = inventoryGoneMessage.replace("PLAYER", lastDeathName);
+                    // insert the dying players name
+                    String lastDeathName = this.plugin.getConfig().getString(String.valueOf(LAST_DEATH_NAME));
+                    if (lastDeathName != null) {
+                        inventoryGoneMessage = inventoryGoneMessage.replace("PLAYER", lastDeathName);
+                    }
+
+                    // send the message to the logged in user
+                    p.sendMessage(ChatColor.RED + inventoryGoneMessage);
                 }
-
-                // send the message to the logged in user
-                p.sendMessage(ChatColor.RED + inventoryGoneMessage);
             }
 
             // remove login data from the list (makes relogging faster)

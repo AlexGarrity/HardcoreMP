@@ -1,4 +1,4 @@
-package de.initialposition.hardcoremp.util;
+package net.initialposition.hardcoremp.util;
 
 public class ConsoleLogger {
 

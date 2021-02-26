@@ -1,6 +1,7 @@
-package de.initialposition.hardcoremp.listeners;
+package net.initialposition.hardcoremp.listeners;
 
-import de.initialposition.hardcoremp.util.ConsoleLogger;
+import net.initialposition.hardcoremp.util.ConsoleLogger;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Timestamp;
 
-import static de.initialposition.hardcoremp.util.ConfigOperations.ConfigKeys.*;
+import static net.initialposition.hardcoremp.util.ConfigOperations.ConfigKeys.*;
 
 public class PlayerDeathListener implements Listener {
 
@@ -35,6 +36,12 @@ public class PlayerDeathListener implements Listener {
             if (!this.plugin.getConfig().getBoolean(String.valueOf(ONE_HIT_KILL))) {
                 return;
             }
+        }
+
+        // cancel if player is holding a totem of undying
+        if (p.getInventory().getItemInMainHand().getType() == Material.TOTEM_OF_UNDYING ||
+        p.getInventory().getItemInOffHand().getType() == Material.TOTEM_OF_UNDYING) {
+            return;
         }
 
         // cancel death since we want to implement our own functionality
