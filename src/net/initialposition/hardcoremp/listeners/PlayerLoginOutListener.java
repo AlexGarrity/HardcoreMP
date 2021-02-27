@@ -79,12 +79,26 @@ public class PlayerLoginOutListener implements Listener {
             }
         }
 
+        // if the players inventory is empty anyway we can stop right here
+        if (p.getInventory().isEmpty()) {
+            ConsoleLogger.consoleLog("Inventory is empty, no further action needed.");
+
+            // remove login data from the list (makes relogging faster)
+            if (logoutData != null) {
+                ConsoleLogger.consoleLog("Removing " + p.getDisplayName() + " from list.");
+                this.logoutList.remove(logoutData);
+            }
+
+            return;
+        }
+
         // only try to delete if player logged in before
         if (logoutData != null) {
             // check if someone died since the player logged in and inventory deletion is enabled
             if (this.plugin.getConfig().getBoolean(String.valueOf(DELETE_INVENTORIES_ON_DEATH))) {
                 if (logoutData.getLastLogin() < this.plugin.getConfig().getLong(String.valueOf(LAST_DEATH_TIME))) {
                     // if yes, clear inventory
+                    ConsoleLogger.consoleLog("Player has not logged in since last clear! Clearing now...");
                     p.getInventory().clear();
 
                     // send a message to tell the player who deleted their shiny items
