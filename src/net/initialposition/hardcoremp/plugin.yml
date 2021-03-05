@@ -5,3 +5,9 @@ description: A plugin to spice up a non hardcore minecraft server
 api-version: 1.16
 author: InitialPosition
 website: www.initialposition.net
+
+commands:
+  hardcoremp:
+    description: Shows help for HardcoreMP commands
+    usage: /hardcoremp
+    permission: hardcoremp.hardcoremp

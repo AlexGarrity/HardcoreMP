@@ -41,6 +41,8 @@ public class HardcoreMP extends JavaPlugin {
             playerLoginOutListener.loadPlayerOfflineList();
         }
         getServer().getPluginManager().registerEvents(playerLoginOutListener, this);
+
+        getCommand("hardcoremp").setExecutor(new CommandHandler(this));
     }
 
     @Override
