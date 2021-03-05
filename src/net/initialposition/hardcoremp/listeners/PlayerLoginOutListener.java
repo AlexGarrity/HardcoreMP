@@ -13,7 +13,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import static net.initialposition.hardcoremp.util.ConfigOperations.ConfigKeys.*;
 

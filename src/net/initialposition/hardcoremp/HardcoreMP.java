@@ -1,6 +1,7 @@
 package net.initialposition.hardcoremp;
 
 import net.initialposition.hardcoremp.listeners.PlayerDeathListener;
+import net.initialposition.hardcoremp.listeners.PlayerItemHeldListener;
 import net.initialposition.hardcoremp.listeners.PlayerLoginOutListener;
 import net.initialposition.hardcoremp.util.ConfigOperations;
 import net.initialposition.hardcoremp.util.ConsoleLogger;
@@ -29,6 +30,10 @@ public class HardcoreMP extends JavaPlugin {
         // add on death listener
         PlayerDeathListener deathListener = new PlayerDeathListener(this);
         getServer().getPluginManager().registerEvents(deathListener, this);
+
+        // Add on item held listener
+        PlayerItemHeldListener itemHeldListener = new PlayerItemHeldListener(this);
+        getServer().getPluginManager().registerEvents(itemHeldListener, this);
 
         // add login/logout listener
         playerLoginOutListener = new PlayerLoginOutListener(this);
