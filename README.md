@@ -30,6 +30,8 @@ The following parameters exist in the config file and can be changed.
 | ONE_HIT_KILL | If set to `true`, any damage is lethal to players. | `true` or `false` |
 | DYING_PLAYER_DROPS_INVENTORY | If set to `true`, the dying player drops his inventory on death (default Minecraft behavior). | `true` or `false` |
 | DYING_PLAYER_DROPS_EXP | If set to `true`, the dying player drops experience on death (default Minecraft behavior). | `true` or `false` |
+| HANDLE_CURSE_OF_BINDING | If `keep`, items with Curse of Binding will be kept (but dropped).  If `disenchant`, the curse will be removed from items with it.  If `default`, items will be deleted | `default`, `disenchant`, or `keep` |
+
 
 All other config entries are used internally and should not be changed.
 
